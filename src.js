@@ -1,10 +1,26 @@
 let humanScore = 0
 let computerScore = 0
 
-function getHumanChoice() {
-    let choice = prompt("Enter 1 for Rock, 2 for Paper, 3 for Scissor (enter 4 to quit): ");
-    return Number(choice)
-}
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener('click', function() {
+        let choice = 0;
+        switch(button.id) {
+            case "rock":
+                choice = 1;
+                break;
+            case "paper":
+                choice = 2;
+                break;
+            case "scissor":
+                choice = 3;
+                break;
+        }
+        Play(choice);
+    });
+});
+
 
 function getComputerChoice() {
     return Math.floor(Math.random() * (3 - 1 + 1)) + 1;
@@ -16,10 +32,12 @@ function compareChoice(humanChoice, computerChoice) {
     }
     else if (humanChoice === 1) {
         if (computerChoice === 3) {
-            alert("Player Won")
+            alert("Player Won");
+            humanScore++;
         } 
         else {
             alert("Computer Won")
+            computerScore++;
         }
     }
     else if (humanChoice === 2) {
@@ -44,12 +62,7 @@ function compareChoice(humanChoice, computerChoice) {
     }
 }
 
-while(true) {
-    let human = getHumanChoice()
-    if(human === 4) {
-        alert("Thanks for playing! Reload to play again")
-        break
-    }
+function Play(human) {
 
     let computer = getComputerChoice()
 
@@ -65,3 +78,4 @@ while(true) {
         alert("Your score < Computer's score")
     }
 }
+
